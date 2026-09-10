@@ -1,0 +1,10 @@
+{
+  "name": "ab-test-calculation-engine",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "start": "node server.js"
+  }
+}

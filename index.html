@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Plan the sample size and duration of an A/B test." />
+    <title>A/B Test Planner</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="site-header">
+        <p class="eyebrow">EXPERIMENT DESIGN</p>
+        <h1>A/B Test Planner</h1>
+        <p class="intro">Plan a well-powered experiment before you ship it.</p>
+      </header>
+
+      <main>
+        <section class="planner" aria-label="A/B test planning calculator">
+          <form id="planner-form" novalidate>
+            <div class="form-heading">
+              <h2>Experiment setup</h2>
+              <p>Set the assumptions for your conversion experiment.</p>
+            </div>
+
+            <div id="form-errors" class="form-errors" role="alert" hidden></div>
+
+            <fieldset>
+              <legend>Conversion assumptions</legend>
+              <div class="field-grid">
+                <label class="field" for="baseline-rate">
+                  <span>Baseline conversion rate</span>
+                  <span class="field-help">Your current conversion rate.</span>
+                  <span class="input-wrap"><input id="baseline-rate" name="baselineRate" type="number" inputmode="decimal" min="0.01" max="99.99" step="0.01" value="10" required /><span>%</span></span>
+                </label>
+                <label class="field" for="mde">
+                  <span>Minimum detectable effect <button class="hint" type="button" aria-label="About minimum detectable effect" title="The smallest relative conversion lift worth detecting. A 10% MDE on a 10% baseline means testing for a 11% conversion rate.">?</button></span>
+                  <span class="field-help">Relative lift you want to detect.</span>
+                  <span class="input-wrap"><input id="mde" name="mde" type="number" inputmode="decimal" min="0.01" max="1000" step="0.01" value="10" required /><span>%</span></span>
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Statistical confidence</legend>
+              <div class="field-grid">
+                <label class="field" for="alpha">
+                  <span>Statistical significance <button class="hint" type="button" aria-label="About statistical significance" title="The chance of declaring a difference when none exists. Lower alpha requires a larger sample.">?</button></span>
+                  <span class="field-help">Tolerance for a false positive.</span>
+                  <span class="input-wrap"><input id="alpha" name="alpha" type="number" inputmode="decimal" min="0.1" max="99" step="0.1" value="5" required /><span>%</span></span>
+                </label>
+                <label class="field" for="power">
+                  <span>Statistical power <button class="hint" type="button" aria-label="About statistical power" title="The chance of detecting the chosen effect if it is real. Higher power requires a larger sample.">?</button></span>
+                  <span class="field-help">Chance of detecting a real effect.</span>
+                  <span class="input-wrap"><input id="power" name="power" type="number" inputmode="decimal" min="1" max="99.9" step="0.1" value="80" required /><span>%</span></span>
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Traffic</legend>
+              <div class="field-grid">
+                <label class="field" for="allocation">
+                  <span>Control traffic allocation</span>
+                  <span class="field-help">The remainder goes to the variant.</span>
+                  <span class="input-wrap"><input id="allocation" name="allocation" type="number" inputmode="decimal" min="1" max="99" step="1" value="50" required /><span>%</span></span>
+                </label>
+                <label class="field" for="daily-traffic">
+                  <span>Daily eligible traffic</span>
+                  <span class="field-help">Visitors who can enter this test each day.</span>
+                  <input id="daily-traffic" name="dailyTraffic" type="number" inputmode="numeric" min="1" step="1" value="1000" required />
+                </label>
+              </div>
+              <p class="allocation-note">Sample sizing uses an equal-allocation test. A different traffic split affects the duration estimate.</p>
+            </fieldset>
+
+            <button class="calculate-button" type="submit">Calculate plan</button>
+          </form>
+
+          <section id="results" class="results" aria-live="polite" aria-labelledby="results-title" hidden>
+            <div class="results-heading">
+              <p class="eyebrow">YOUR EXPERIMENT PLAN</p>
+              <h2 id="results-title">Plan summary</h2>
+              <p id="results-summary"></p>
+            </div>
+            <div class="primary-result">
+              <p>Required sample</p>
+              <strong id="per-variant-result">—</strong>
+              <span>visitors per variant</span>
+            </div>
+            <dl class="supporting-results">
+              <div>
+                <dt>Total required sample</dt>
+                <dd id="total-result">—</dd>
+                <small>visitors across both variants</small>
+              </div>
+              <div>
+                <dt>Estimated duration</dt>
+                <dd id="duration-result">—</dd>
+                <small id="duration-detail">—</small>
+              </div>
+            </dl>
+            <p class="result-note">This is the number of eligible visitors needed to have the selected chance of detecting your chosen effect. Run the experiment for full weeks where practical to account for normal weekly behaviour.</p>
+          </section>
+        </section>
+      </main>
+
+      <footer>© 2026 KukHwa Kim</footer>
+    </div>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
