@@ -79,6 +79,9 @@ Run the statistical engine tests:
 
 npm test
 
+<img width="828" height="680" alt="image" src="https://github.com/user-attachments/assets/be600d5e-d674-4555-a36d-579d91f19e6d" />
+
+
 ## Statistical Methodology
 
 The current version uses a two-sided two-proportion z-test for comparing conversion rates between the control and treatment groups.
