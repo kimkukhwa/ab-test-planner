@@ -61,6 +61,24 @@ The planner can estimate the required sample size and translate that requirement
 
 This helps set expectations before launching the experiment, rather than relying on an arbitrary test duration.
 
+## How to Run Locally
+
+Install dependencies:
+
+npm install
+
+Run the application:
+
+npm start
+
+Then open:
+
+http://localhost:4173
+
+Run the statistical engine tests:
+
+npm test
+
 ## Statistical Methodology
 
 The current version uses a two-sided two-proportion z-test for comparing conversion rates between the control and treatment groups.
