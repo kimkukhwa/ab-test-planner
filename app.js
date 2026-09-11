@@ -1,5 +1,27 @@
 import { planAbTest } from './src/ab-test-engine.js';
 
+const themeToggle = document.querySelector('#theme-toggle');
+const themeToggleIcon = document.querySelector('#theme-toggle-icon');
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  themeToggle.setAttribute('aria-checked', String(theme === 'dark'));
+  themeToggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+  themeToggleIcon.textContent = theme === 'dark' ? '☾' : '☀';
+  try {
+    localStorage.setItem('theme', theme);
+  } catch (error) {
+    // Ignore storage failures (e.g. private browsing); theme just won't persist.
+  }
+}
+
+applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
+
+themeToggle.addEventListener('click', () => {
+  const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  applyTheme(next);
+});
+
 const form = document.querySelector('#planner-form');
 const errors = document.querySelector('#form-errors');
 const results = document.querySelector('#results');
